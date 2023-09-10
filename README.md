@@ -52,8 +52,8 @@ python manage.py runserver localhost:80 # or 127.0.0.1:80 to expose for public, 
 ```
 ## Features
 
-- profile (Profile), music (Artist, Album, Music); misc (WishListEntry, Alarm)
-- endpoints for: authentication of the user (CRUD user + profile); CRUD for Artists, albums and musics; CRUD for wishListEntries and alarms.
+- Models: profile (Profile), music (Artist, Album, Music); misc (WishListEntry, Alarm)
+- Endpoints for: authentication of the user (CRUD user + profile); CRUD for Artists, albums and musics; CRUD for wishListEntries and alarms.
 - Others...
 
 Install the depedencies and run the code, have fun!
