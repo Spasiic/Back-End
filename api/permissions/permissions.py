@@ -12,12 +12,12 @@ class IsStaffOrReadOnly(BasePermission):
         return request.user.is_staff
 
     
-class IsAdminOrProfile(BasePermission):
+class IsAdminOrOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in ['GET', 'PUT', 'PATCH', 'DELETE']:
             return request.user.is_staff or obj.user == request.user
         return False
 
-    def has_permission(self, request, view):
-        return request.method in ['GET', 'PUT', 'PATCH', 'DELETE']
+    # def has_permission(self, request, view):
+    #     return request.method in ['GET', 'PUT', 'PATCH', 'DELETE']
     
