@@ -5,11 +5,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.backends import BaseBackend
-from django.contrib.auth.models import User
+from rest_framework.permissions import AllowAny, IsAuthenticated
   
 class RegisterView(APIView):
     serializer_class = UserSerializer
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -20,6 +20,8 @@ class RegisterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(TokenObtainPairView):
+    permission_classes = [AllowAny]
+    
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         user = authenticate(
@@ -31,6 +33,8 @@ class LoginView(TokenObtainPairView):
         return response
 
 class LogoutAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def delete(self, request):
         logout(request)
         return Response({'success': 'User logged out successfully.'})

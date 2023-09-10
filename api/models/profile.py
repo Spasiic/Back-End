@@ -7,4 +7,7 @@ class Profile(models.Model):
     birth =  models.DateField(blank=True, null=True)
 
     def __str__(self): 
-            return str(self.user)
+            return self.user.username
+    
+
+

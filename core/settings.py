@@ -1,15 +1,20 @@
-import os
+import os, json
 from pathlib import Path
 from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+settings = 'settings.json'
+
+with open(settings) as f:
+    settings = json.loads(f.read())
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)uj@skqke($2_x-&ixp4zk9#hp7yjjtfg1qj*3^o37!^fzfxf!'
+SECRET_KEY = settings.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -63,16 +68,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "mml",
-        "USER": "root",
-        "PASSWORD": "root",
-        "HOST": "localhost",
-        "PORT": "3306"
-    }
-}
+DATABASES = settings.get('DATABASES')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -106,18 +102,30 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_ROOT = settings.get('STATIC_ROOT')
 
-# Configuração de Mídia
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = 'static/'
+
+MEDIA_URL = 'media/'
+
+MEDIA_ROOT = settings.get('MEDIA_ROOT')
+
+STATICFILES_DIRS = [
+    settings.get('STATICFILES_DIRS'),
+]
 
 # Configuração de Autenticação e Middleware
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication'
-    ),
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['api.filters.JSONFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
 }
 
 MIDDLEWARE_CLASSES = [
