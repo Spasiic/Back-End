@@ -24,7 +24,9 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     first_name = serializers.ReadOnlyField(source='user.first_name')
     last_name = serializers.ReadOnlyField(source='user.last_name')
+    username = serializers.ReadOnlyField(source='user.username')
+    email = serializers.ReadOnlyField(source='user.email')
 
     class Meta:
         model = Profile
-        fields = ['id', 'first_name', 'last_name', 'image', 'birth']
+        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'image', 'birth']

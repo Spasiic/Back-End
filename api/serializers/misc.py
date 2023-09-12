@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from api.models.misc import WishListEntry, Alarm
+from api.models.music import Music
+from api.serializers.music import MusicSerializer
 
 class WishListEntrySerializer(serializers.ModelSerializer):
 
@@ -14,11 +16,17 @@ class WishListEntrySerializer(serializers.ModelSerializer):
 
         return data
 
+    music_info = serializers.SerializerMethodField()
+    music = serializers.PrimaryKeyRelatedField(queryset=Music.objects.all(), write_only=True)
+
+    def get_music_info(self, obj):
+        return MusicSerializer(obj.music).data
+
     class Meta:
         model = WishListEntry
-        fields = '__all__'
+        fields = ['user', 'music', 'music_info', 'dttm_created']
+        read_only_fields = ['music_info', 'dttm_created']
 
-    
 
 class AlarmSerializer(serializers.ModelSerializer):
 

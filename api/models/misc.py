@@ -12,6 +12,7 @@ class WishListEntry(models.Model):
         return self.music.name
 
 class Alarm(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     wishlist_entry = models.ForeignKey(WishListEntry, on_delete=models.CASCADE)
     time = models.DateTimeField(default=None, null=True, blank=True)
 
