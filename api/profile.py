@@ -2,7 +2,11 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
 from api.models.profile import Profile
+from rest_framework import viewsets
+from api.permissions.permissions import IsStaffOrReadOnly, IsAdminOrOwner
 
+# PROFILE SERIALIZERS:
+# ----------------------------------------------------------------------------------------------
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(validators=[UniqueValidator(queryset=User.objects.all())])
     password = serializers.CharField(write_only=True)
@@ -30,3 +34,21 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['id', 'first_name', 'last_name', 'username', 'email', 'image', 'birth']
+# ----------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------
+
+# PROFILE VIEWS:
+# ----------------------------------------------------------------------------------------------
+class ProfileViewSet (viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsStaffOrReadOnly]
+    
+class UserProfileViewSet (viewsets.ModelViewSet):
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAdminOrOwner]
+
+    def get_queryset(self):
+        return Profile.objects.filter(user=self.request.user)
+# ----------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------

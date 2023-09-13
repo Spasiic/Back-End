@@ -1,9 +1,9 @@
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenRefreshView
-from api.views.profile import ProfileViewSet, UserProfileViewSet
-from api.views.music import ArtistViewSet, AlbumViewSet, MusicViewSet
-from api.views.misc import WishListEntryViewSet
+from api.profile import ProfileViewSet, UserProfileViewSet
+from api.music import ArtistViewSet, AlbumViewSet, MusicViewSet
+from api.misc import WishListEntryViewSet
 from api.authentication.authentication import RegisterView, LoginView, LogoutAPIView
 
 r1 = routers.SimpleRouter()
