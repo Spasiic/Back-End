@@ -17,9 +17,13 @@ with open(settings) as f:
 SECRET_KEY = settings.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = settings.get('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = settings.get('ALLOWED_HOSTS')
+
+CORS_ALLOWED_ORIGINS = settings.get('CORS_ALLOWED_ORIGINS')
+
+CORS_ALLOW_ALL_ORIGINS = settings.get('CORS_ALLOW_ALL_ORIGINS')
 
 # Application definition
 
@@ -30,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "corsheaders",
     'rest_framework',
     'rest_framework_simplejwt',
     'api'
@@ -38,6 +43,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
