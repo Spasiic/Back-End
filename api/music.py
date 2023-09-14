@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from api.models.music import Artist, Album, Music
+from rest_framework import viewsets
 
+# MUSIC SERIALIZERS:
+# ----------------------------------------------------------------------------------------------
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artist
@@ -28,6 +31,23 @@ class MusicSerializer(serializers.ModelSerializer):
         model = Music
         fields = ['id', 'album', 'name', 'duration', 'album_info', 'spotify', 'soundcloud', 'deezer']
 
+# ----------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------
 
 
+# MUSIC VIEWS:
+# ----------------------------------------------------------------------------------------------
+class ArtistViewSet (viewsets.ModelViewSet):
+    queryset = Artist.objects.all()
+    serializer_class = ArtistSerializer
 
+class AlbumViewSet (viewsets.ModelViewSet):
+    queryset = Album.objects.all()
+    serializer_class = AlbumSerializer
+
+class MusicViewSet (viewsets.ModelViewSet):
+    queryset = Music.objects.all()
+    serializer_class = MusicSerializer
+
+# ----------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------

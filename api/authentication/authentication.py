@@ -1,4 +1,4 @@
-from api.serializers.profile import UserSerializer
+from api.profile import UserSerializer
 from api.models.profile import Profile
 from rest_framework.views import APIView
 from rest_framework.response import Response
