@@ -16,19 +16,23 @@ This repository contains MyMusicList BACKEND code.
 ``` 
 {
     "SECRET_KEY":"insert_key",
+    "DEBUG":true,
     "DATABASES":{
             "default":{
                 "ENGINE":"django.db.backends.mysql",
-                "NAME": "insert_name",
-                "USER": "insert_user",
-                "PASSWORD":"insert_password",
-                "HOST": "insert_host", 
-                "PORT": "insert_port"
+                "NAME": "insert_database_name",
+                "USER": "insert_database_user",
+                "PASSWORD":"insert_database_password",
+                "HOST": "insert_database_host", 
+                "PORT": "insert_database_port"
             }
     },
-    "STATICFILES_DIRS":"C:/var/"insert_name",
-    "STATIC_ROOT":"/var/www/spasiic/static/",
-    "MEDIA_ROOT":"/var/www/spasiic/media/"
+    "STATICFILES_DIRS":"/home/kosolov325/mymusiclist/static",
+    "STATIC_ROOT":"/var/www/mymusiclist/static/",
+    "MEDIA_ROOT":"/var/www/mymusiclist/media/",
+    "ALLOWED_HOSTS":["*"],
+    "CORS_ALLOWED_ORIGINS":[],
+    "CORS_ALLOW_ALL_ORIGINS":true
 }
 ```
 
