@@ -27,6 +27,8 @@ This repository contains MyMusicList BACKEND code.
                 "PORT": "insert_database_port"
             }
     },
+    "TIME_ZONE":"America/Fortaleza",
+    "USE_TZ":false,
     "STATICFILES_DIRS":"/home/kosolov325/mymusiclist/static",
     "STATIC_ROOT":"/var/www/mymusiclist/static/",
     "MEDIA_ROOT":"/var/www/mymusiclist/media/",
